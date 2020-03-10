@@ -14,13 +14,18 @@ import java.util.Queue;
  */
 public class UltrasonicLocalizer implements Runnable{
 
+  /** The us data. */
   private float[] usData = new float[usSensor.sampleSize()];
 
+  /** The distance. */
   // Distance from wall.
   private volatile int distance;
 
+  /** The queue. */
   // Lists used to filter out misread values of distance.
   private Queue<Float> queue = new LinkedList<Float>();
+  
+  /** The filter list. */
   private ArrayList<Float> filterList = new ArrayList<Float>();
 
   /**
@@ -112,6 +117,12 @@ public class UltrasonicLocalizer implements Runnable{
     distance = filter(filterList);
   }
   
+  /**
+   * Filter.
+   *
+   * @param lastFiveValues the last five values
+   * @return the int
+   */
   int filter(ArrayList<Float> lastFiveValues) {
     float filteredDist = 0;
     Collections.sort(lastFiveValues);

@@ -16,14 +16,10 @@ import lejos.hardware.sensor.EV3UltrasonicSensor;
  */
 public class Resources {
 
-  /**
-   * Wheel rotation speed in degrees/sec when the robot is rotating
-   */
+  /** Wheel rotation speed in degrees/sec when the robot is rotating. */
   public static final int ROTATE_SPEED = 70;
 
-  /**
-   * Wheel rotation speed in degrees/sec when the robot is going straight
-   */
+  /** Wheel rotation speed in degrees/sec when the robot is going straight. */
   public static final int STRAIGHT_SPEED = 100;
 
   /**
@@ -61,59 +57,37 @@ public class Resources {
    */
   public static final double DEG_TO_RAD = 0.0175;
 
-  /**
-   * Constant below which the sensor detects a line
-   */
+  /** Constant below which the sensor detects a line. */
   public static final int LIGHT_SENSOR_THRESHOLD = 10;
 
-  /**
-   * Angle to turn by if the left sensor detects a line first
-   */
+  /** Angle to turn by if the left sensor detects a line first. */
   public static final int LEFT_SENSOR_FIRST_LOCALIZATION_ANGLE = -90;
 
-  /**
-   * Angle to turn by if the right sensor detects a line first
-   */
+  /** Angle to turn by if the right sensor detects a line first. */
   public static final int RIGHT_SENSOR_FIRST_LOCALIZATION_ANGLE = -85;
   
-  /**
-   * Path 1 of lab 5
-   */
+  /** Path 1 of lab 5. */
   public static final double[][] PATH1 = {{1,7},{3,4},{7,7},{7,4},{4,1}};
   
-  /**
-   * Path 2 of lab 5
-   */
+  /** Path 2 of lab 5. */
   public static final double[][] PATH2 = {{2,2},{1,3},{3,3},{3,2},{2,1}};
   
-  /**
-   * Path 3 of lab 5
-   */
+  /** Path 3 of lab 5. */
   public static final double[][] PATH3 = {{2,1},{3,2},{3,3},{1,3},{2,2}};
   
-  /**
-   * Path 4 of lab 5
-   */
+  /** Path 4 of lab 5. */
   public static final double[][] PATH4 = {{1,2},{2,3},{2,1},{3,2},{3,3}};
   
-  /**
-   * Yellow ring for lab 5
-   */
+  /** Yellow ring for lab 5. */
   public static final double[] YELLOW = {0.2098,0.0351,0.1288,0.0192,0.0263,0.0032};
   
-  /**
-   * Green ring for lab 5
-   */
+  /** Green ring for lab 5. */
   public static final double[] GREEN = {0.0724,0.0181,0.1351,0.0247,0.0202,0.0046};
   
-  /**
-   * Blue ring for lab 5
-   */
+  /** Blue ring for lab 5. */
   public static final double[] BLUE = {0.0259,0.0035,0.1084,0.0072,0.0937,0.0036};
   
-  /**
-   * Orange ring for lab 5
-   */
+  /** Orange ring for lab 5. */
   public static final double[] ORANGE = {0.1594,0.0515,0.0390,0.0113,0.0127,0.0054};
 
   /**

@@ -5,6 +5,9 @@ import static ca.mcgill.ecse211.project.Resources.WHEEL_RAD;
 import static ca.mcgill.ecse211.project.Resources.leftMotor;
 import static ca.mcgill.ecse211.project.Resources.rightMotor;
 
+/**
+ * The Class Utility includes shared utility methods to avoid cluttering in other classes.
+ */
 public final class Utility {
   
   /**
@@ -52,9 +55,9 @@ public final class Utility {
   
   /**
    * Turns the robot by an input angle. Positive angles move the robot in the clockwise direction
-   * 
+   *
    * @param angle the angle to turn
-   * @param speed of the motors
+   * @param motorSpeed the motor speed
    */
   public static void turnBy(double angle, int motorSpeed) {
     leftMotor.setSpeed(motorSpeed);
@@ -65,9 +68,9 @@ public final class Utility {
   
   /**
    * Turns the robot by an input angle, but does not wait for move to complete. Positive angles move the robot in the clockwise direction
-   * 
+   *
    * @param angle the angle to turn
-   * @param speed of the motors
+   * @param motorSpeed the motor speed
    */
   public static void turnByWithoutWaiting(double angle, int motorSpeed) {
     leftMotor.setSpeed(motorSpeed);
@@ -77,10 +80,10 @@ public final class Utility {
   }
   
   /**
-   * Moves the robot straight for an input distance
-   * 
-   * @param distance
-   * @param motorSpeed
+   * Moves the robot straight for an input distance.
+   *
+   * @param distance the distance
+   * @param motorSpeed the motor speed
    */
   public static void moveStraightFor(double distance, int motorSpeed) {
     leftMotor.setSpeed(motorSpeed);
@@ -90,10 +93,10 @@ public final class Utility {
   }
   
   /**
-   * Moves the robot straight for an input distance, but does not wait for move to complete
-   * 
-   * @param distance
-   * @param motorSpeed
+   * Moves the robot straight for an input distance, but does not wait for move to complete.
+   *
+   * @param distance the distance
+   * @param motorSpeed the motor speed
    */
   public static void moveStraightForWithoutWaiting(double distance, int motorSpeed) {
     leftMotor.setSpeed(motorSpeed);
@@ -104,8 +107,8 @@ public final class Utility {
   
   /**
    * Moves the robot straight at a given speed.
-   * 
-   * @param motorSpeed
+   *
+   * @param motorSpeed the motor speed
    */
   public static void moveStraight(int motorSpeed) {
     leftMotor.setSpeed(motorSpeed);

@@ -5,6 +5,11 @@ import lejos.hardware.Button;
 import lejos.hardware.Sound;
 import lejos.robotics.SampleProvider;
 
+/**
+ * This class checks if a color is detected by the sensor and identifies it.
+ * @author Kaan Gure
+ *
+ */
 public class ColorDetection implements Runnable{
   
   
@@ -12,7 +17,7 @@ public class ColorDetection implements Runnable{
   private float[] middleLsData = new float[RGB.sampleSize()];
   
   /**
-   * checks if a color is detected.
+   * checks if a color is detected and identifies it.
    * 
    * @param RGB the input RGB values obtained from the light sensor
    */
@@ -67,7 +72,7 @@ public class ColorDetection implements Runnable{
   }
   
   /**
-   * Where the main logic of the class runs.
+   * Where the main logic of the thread runs.
    */
   public void run() {
     while(true) {

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import lejos.hardware.Button;
 
 /**
- * The main driver class for the lab.
+ * The main driver class for the project.
  */
 public class Main {
   
@@ -61,18 +61,7 @@ public class Main {
 
     new Thread(odometer).start();
     doInitialLocalization();
-    new Thread(new ColorDetection()).start();
     Navigation.navigate();
-    
-    while(true) {
-      if(colorDetected) {
-        Button.waitForAnyPress();
-        TEXT_LCD.clear();
-        colorDetected = false;
-        Navigation.navigate();
-      }
-      Utility.sleepFor(POLL_SLEEP_TIME);
-    }
     
 
     }
