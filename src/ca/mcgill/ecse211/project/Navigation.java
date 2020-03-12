@@ -13,9 +13,11 @@ import lejos.hardware.Sound;
  */
 public class Navigation {
 
-  private static double[] currentPosition = new double[2];
+  //private static double[] currentPosition = new double[2];
 
   private static double angleFromYAxis = 0;
+  
+  public static int[] initialPosition = new int[2];
   
   public static String bridgeOrientation; //Either X or Y
   
