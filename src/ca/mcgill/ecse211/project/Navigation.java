@@ -17,6 +17,10 @@ public class Navigation {
 
   private static double angleFromYAxis = 0;
   
+  public static String bridgeOrientation; //Either X or Y
+  
+  public static int[] bridgeExit = new int[2];
+  
   /**
    * Turns the robot by the shortest angle 
    * @param angle
