@@ -15,9 +15,6 @@ public class Navigation {
 
   private static double[] currentPosition = new double[2];
 
-  // To change path executed just change the chosen path.
-  private static double[][] chosenPath = PATH1;
-
   private static double angleFromYAxis = 0;
   
   /**
