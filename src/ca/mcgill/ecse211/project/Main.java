@@ -3,6 +3,7 @@ package ca.mcgill.ecse211.project;
 import static ca.mcgill.ecse211.project.Resources.*;
 import java.util.ArrayList;
 import lejos.hardware.Button;
+import lejos.hardware.Sound;
 
 /**
  * The main driver class for the project.
@@ -38,6 +39,9 @@ public class Main {
     Utility.moveStraight(STRAIGHT_SPEED);
     doLightCorrection();
     odometer.setXyt(TILE_SIZE, TILE_SIZE, 0); //Reset the odometer after localization is done
+    for (int i = 0; i < 3; i ++) {
+      Sound.beep();
+    }
   }
   
   public static void doLightCorrection() {
@@ -62,7 +66,7 @@ public class Main {
     new Thread(odometer).start();
     doInitialLocalization();
     Navigation.navigate();
-    
+    //Utility.turnBy(90, ROTATE_SPEED);
 
     }
 

@@ -30,7 +30,7 @@ public class Resources {
   /**
    * Distance between the two wheels of the robot in cm.
    */
-  public static final double BASE_WIDTH = 14.8;
+  public static final double BASE_WIDTH = 16.8;
 
   /**
    * Code base sleep time in milliseconds.
