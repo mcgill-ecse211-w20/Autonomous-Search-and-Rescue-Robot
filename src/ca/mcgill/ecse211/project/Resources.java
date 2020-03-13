@@ -37,6 +37,8 @@ public class Resources {
    */
   public static final long POLL_SLEEP_TIME = 25;
   
+  public static final long BIG_SLEEP_TIME = 2000;
+  
   /**
    * Color detection sleep time in milliseconds.
    */
@@ -77,18 +79,6 @@ public class Resources {
   
   /** Path 4 of lab 5. */
   public static final double[][] PATH4 = {{1,2},{2,3},{2,1},{3,2},{3,3}};
-  
-  /** Yellow ring for lab 5. */
-  public static final double[] YELLOW = {0.2098,0.0351,0.1288,0.0192,0.0263,0.0032};
-  
-  /** Green ring for lab 5. */
-  public static final double[] GREEN = {0.0724,0.0181,0.1351,0.0247,0.0202,0.0046};
-  
-  /** Blue ring for lab 5. */
-  public static final double[] BLUE = {0.0259,0.0035,0.1084,0.0072,0.0937,0.0036};
-  
-  /** Orange ring for lab 5. */
-  public static final double[] ORANGE = {0.1594,0.0515,0.0390,0.0113,0.0127,0.0054};
 
   /**
    * Odometer.

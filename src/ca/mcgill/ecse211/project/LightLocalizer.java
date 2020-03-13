@@ -82,6 +82,13 @@ public class LightLocalizer implements Runnable {
     while (true) {
       leftRedSensorValue.fetchSample(leftLsData, 0);
       rightRedSensorValue.fetchSample(rightLsData, 0);
+      
+      /*if (leftLightSensorDetectsLine(leftLsData[0]) && rightLightSensorDetectsLine(rightLsData[0])){
+        leftMotor.setSpeed(0);
+        rightMotor.setSpeed(0);
+        leftMotorStopped = true;
+        rightMotorStopped = true;
+      }*/
       if (leftLightSensorDetectsLine(leftLsData[0])) {
         leftMotor.setSpeed(0);
         leftMotorStopped = true;

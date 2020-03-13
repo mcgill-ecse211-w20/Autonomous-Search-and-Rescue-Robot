@@ -14,6 +14,7 @@ public class Main {
   public static boolean ultrasonicLocalizationComplete;
   public static boolean lightCorrectionComplete;
   public static boolean leftSensorFirst;
+  public static boolean obstacleIsDetected = false;
   public static ArrayList<String> ColorsDetected = new ArrayList<String>();
   
 //Store end goal of each segment to resume navigation
@@ -49,6 +50,15 @@ public class Main {
     new Thread(new LightLocalizer()).start();
     while(lightCorrectionComplete == false);
   }
+  
+  public static void crossBridge() {
+    if (Mapping.bridgeOrientation == 'X') {
+      Navigation.travelTo(Mapping.bridgeExit[0] - Mapping.initialPosition[0]);
+    }
+    else {
+      
+    }
+  }
 
   /**
    * The main entry point.
@@ -65,9 +75,8 @@ public class Main {
 
     new Thread(odometer).start();
     doInitialLocalization();
-    Navigation.navigate();
-    //Utility.turnBy(90, ROTATE_SPEED);
-
+    //crossBridge();
+    Navigation.moveStraightForNrTiles(3);
     }
 
 }

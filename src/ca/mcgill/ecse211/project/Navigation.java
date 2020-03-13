@@ -13,21 +13,14 @@ import lejos.hardware.Sound;
  */
 public class Navigation {
 
-  //private static double[] currentPosition = new double[2];
+  private static double[] currentPosition = new double[2];
 
-  private static double angleFromYAxis = 0;
-  
-  public static int[] initialPosition = new int[2];
-  
-  public static String bridgeOrientation; //Either X or Y
-  
-  public static int[] bridgeExit = new int[2];
-  
+  //private static double angleFromYAxis = 0;
   /**
    * Turns the robot by the shortest angle 
    * @param angle
    */
-  private static void turnTo(double angle) { 
+  public static void turnTo(double angle) { 
     double t = - odometer.getXyt()[2] + angle;
     if (t > 180) t -= 360;
     if (t < -180) t += 360;
@@ -62,35 +55,15 @@ public class Navigation {
 
     Utility.moveStraightForWithoutWaiting(distance, 2 * STRAIGHT_SPEED);
   }
-
-  /**
-   * This method is where the logic for the navigation will run.
-   */
-  public static void navigate() {
-    String colors = "";
-    // One iteration per point of the path.
-    for(; Main.currentSegment <= 4 ; Main.currentSegment++) {
-      currentPosition[0] = odometer.getXyt()[0];
-      currentPosition[1] = odometer.getXyt()[1];
-      Main.endGoal[0] = chosenPath[Main.currentSegment][0];
-      Main.endGoal[1] = chosenPath[Main.currentSegment][1];
-      travelTo(Main.endGoal[0], Main.endGoal[1]);
-      while(leftMotor.isMoving() && rightMotor.isMoving()) {
-        if(Main.colorDetected) {
-        Utility.stopMotors();
-        return;
-        }
-      }
+  
+  public static void moveStraightForNrTiles(int nr) {
+    int counter = 0;
+    
+    while (counter < nr && !Main.obstacleIsDetected) {
+      Utility.moveStraight(STRAIGHT_SPEED);
+      Utility.sleepFor(BIG_SLEEP_TIME);
+      Main.doLightCorrection();
+      counter ++;
     }
-    for(int i=0; Main.ColorsDetected.size() < i; i++) {
-      colors = colors.concat(" " + Main.ColorsDetected.get(i));
-    }
-    TEXT_LCD.clear();
-    TEXT_LCD.drawString("Number Detected: " + Main.ColorsDetected.size(), 0, 0);
-    TEXT_LCD.drawString("Colors Detected: ", 0, 1);
-    TEXT_LCD.drawString("" + colors, 0, 2);
-    Sound.beep();
-    Sound.beep();
-    Sound.beep();
   }
 }
