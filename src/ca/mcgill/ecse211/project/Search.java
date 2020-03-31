@@ -40,7 +40,7 @@ public class Search {
    * Main logic for the search operation
    * 
    */
-  public void search() {
+  public static void search() {
     throw new java.lang.UnsupportedOperationException("Not implemented yet");
 
   }

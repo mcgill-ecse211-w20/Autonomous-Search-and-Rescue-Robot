@@ -5,26 +5,21 @@ import lejos.hardware.Button;
 import lejos.hardware.Sound;
 
 /**
- * The navigation class allows for the robot's movement along a given path.
+ * The navigation class allows for the robot's movement along a given path. To help with light corrections,
+ * the robot should travel along the gridlines as much as possible.
  * 
  * @author Maxime Buteau
  * @author Rayan Wehbe
  * @author Kaan Gure
  */
 public class Navigation {
-
-  //private static double[] currentPosition = new double[2];
-
+  /*
+   * 
+   */
   private static double angleFromYAxis = 0;
-  
-  public static int[] initialPosition = new int[2];
-  
-  public static String bridgeOrientation; //Either X or Y
-  
-  public static int[] bridgeExit = new int[2];
-  
+
   /**
-   * Turns the robot by the shortest angle 
+   * Turns the robot by the shortest angle to point to the point it has to navigate to.
    * @param angle
    */
   private static void turnTo(double angle) { 
@@ -43,10 +38,10 @@ public class Navigation {
    * @param x the X-coordinate of the point to go to
    * @param y the Y-coordinate of the point to go to
    */
-  private static void travelTo(double x, double y) {
+  public static void travelTo(double x, double y) {
 
-    double xDist = (x * TILE_SIZE - currentPosition[0]);
-    double yDist = (y * TILE_SIZE -currentPosition[1]);
+    double xDist = (x * TILE_SIZE - odometer.getXyt()[0]);
+    double yDist = (y * TILE_SIZE - odometer.getXyt()[1]);
 
     // Euclidean distance to next point
     double distance = (Math.hypot(xDist,yDist));
@@ -61,36 +56,5 @@ public class Navigation {
     turnTo(angleFromYAxis);
 
     Utility.moveStraightForWithoutWaiting(distance, 2 * STRAIGHT_SPEED);
-  }
-
-  /**
-   * This method is where the logic for the navigation will run.
-   */
-  public static void navigate() {
-    String colors = "";
-    // One iteration per point of the path.
-    for(; Main.currentSegment <= 4 ; Main.currentSegment++) {
-      currentPosition[0] = odometer.getXyt()[0];
-      currentPosition[1] = odometer.getXyt()[1];
-      Main.endGoal[0] = chosenPath[Main.currentSegment][0];
-      Main.endGoal[1] = chosenPath[Main.currentSegment][1];
-      travelTo(Main.endGoal[0], Main.endGoal[1]);
-      while(leftMotor.isMoving() && rightMotor.isMoving()) {
-        if(Main.colorDetected) {
-        Utility.stopMotors();
-        return;
-        }
-      }
-    }
-    for(int i=0; Main.ColorsDetected.size() < i; i++) {
-      colors = colors.concat(" " + Main.ColorsDetected.get(i));
-    }
-    TEXT_LCD.clear();
-    TEXT_LCD.drawString("Number Detected: " + Main.ColorsDetected.size(), 0, 0);
-    TEXT_LCD.drawString("Colors Detected: ", 0, 1);
-    TEXT_LCD.drawString("" + colors, 0, 2);
-    Sound.beep();
-    Sound.beep();
-    Sound.beep();
   }
 }

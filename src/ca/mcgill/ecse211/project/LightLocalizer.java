@@ -5,8 +5,8 @@ import lejos.hardware.Sound;
 import lejos.robotics.SampleProvider;
 
 /**
- * The Class LightLocalizer corrects the angle of the robot to be perpendicular to grid lines and localizes
- * the robot to the intersection of grid lines.
+ * The LightLocalizer class performs small corrections to the trajectory of the robot at line intersections to 
+ * ensure that it moves in a straight line. For this to work, the robot has to move along the grid lines.
  * 
  */
 public class LightLocalizer implements Runnable {
@@ -23,14 +23,15 @@ public class LightLocalizer implements Runnable {
   /** The right ls data. */
   private float[] rightLsData = new float[rightLightSensor.sampleSize()];
   
-  /** The left below threshold counter. */
+  /** The left below threshold counter. This is used to filter out false positives returned by the light sensor */
   private int leftBelowThresholdCounter = 0;
   
-  /** The right below threshold counter. */
+  /** The right below threshold counter. This is used to filter out false positives returned by the light sensor */
   private int rightBelowThresholdCounter = 0;
 
   /**
-   * Filter method that checks if the left light sensor detects a line.
+   * Filter method that checks if the left light sensor detects a line. It filters out
+   * false positives by waiting until the sensor returns 3 consecutive positives before returning true.
    *
    * @param value the value
    * @return true if a line is detected
@@ -51,7 +52,8 @@ public class LightLocalizer implements Runnable {
   }
   
   /**
-   * Filter method that checks if the right light sensor detects a line.
+   * Filter method that checks if the right light sensor detects a line. It filters out
+   * false positives by waiting until the sensor returns 3 consecutive positives before returning true.
    *
    * @param value the value
    * @return true if a line is detected
@@ -72,7 +74,9 @@ public class LightLocalizer implements Runnable {
   }
   
   /**
-   * Where the main logic runs.
+   * Where the main logic runs. When a light sensor detects a line, it stops the corresponding motor. Once the
+   * second light sensor also detects a line, it also stops its corresponding motor. This method also keeps track
+   * of the sensor that detected the line first for appropriate corrections during the initial localization phase.
    */
   public void run() {
 
