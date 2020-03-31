@@ -2,6 +2,9 @@ package ca.mcgill.ecse211.project;
 
 /**
  * The search class enables the robot to search for the car in the search zone.
+ * It utilizes an S-shaped search pattern, sweeping the search zone from one end to the other.
+ * It also enables the robot to return to its search path after an obstacle avoidance routine has been completed.
+ * It also contains the method that allows the robot to capture the car after it has been detected by the ObstacleAvoidance class.
  *
  */
 public class Search {
@@ -28,7 +31,7 @@ public class Search {
   }
   
   /**
-   * Attaches the robot to the car once it has been detected.
+   * Attaches the robot to the car once it has been detected by getting close to it and engaging the grabber arms to capture the car inside the robot.
    * 
    */
   public void attach() {
@@ -37,10 +40,10 @@ public class Search {
   }
   
   /**
-   * Main logic for the search operation
+   * Main logic for the search operation takes place here by utilizing the methods in this class.
    * 
    */
-  public void search() {
+  public static void search() {
     throw new java.lang.UnsupportedOperationException("Not implemented yet");
 
   }

@@ -6,7 +6,8 @@ import lejos.hardware.Button;
 import lejos.hardware.Sound;
 
 /**
- * The main driver class for the project.
+ * This class controls the execution of the different steps required for a robot to autonomously go rescue a stranded 
+ * vehicle.
  */
 public class Main {
   
@@ -16,13 +17,17 @@ public class Main {
   public static boolean leftSensorFirst;
   public static ArrayList<String> ColorsDetected = new ArrayList<String>();
   
-//Store end goal of each segment to resume navigation
+  //Store end goal of each segment to resume navigation
   public static double[] endGoal = new double[2];
-  //Store the current segment we are on to resume navigation
-  public static int currentSegment = 0;
+  
+  public static double[] pointInLineWithBridge = new double[2];
+  public static double[] pointAfterBridge = new double[2];
+  public static double[] pointForSearch = new double[2];
   
   /**
-   * Procedure for the initial localization
+   * Procedure for the initial localization. The robot first performs ultrasonic localization to get a general idea of 
+   * the direction it has to travel in, before performing light localization twice to accurately to locate to the (1,1)
+   * point on the grid facing in the direction of the positive y axis.
    */
   public static void doInitialLocalization() {
     ultrasonicLocalizationComplete = false;
@@ -43,7 +48,9 @@ public class Main {
       Sound.beep();
     }
   }
-  
+  /*
+   * Performs light correction when the robot is traveling straight
+   */
   public static void doLightCorrection() {
     lightCorrectionComplete = false;
     new Thread(new LightLocalizer()).start();
@@ -51,23 +58,24 @@ public class Main {
   }
 
   /**
-   * The main entry point.
+   * The main entry point. The different steps of the procedure are called in order.
    * 
    * @param args not used
    */
   public static void main(String[] args) {
     
+    //TODO: change the starting procedure once the wifi class is provided
     TEXT_LCD.clear();
-    //new Thread(new ColorCalibration()).start();
     TEXT_LCD.drawString("Press the middle", 0, 0);
     TEXT_LCD.drawString("button to begin!", 0, 1);
     Button.waitForAnyPress();
 
     new Thread(odometer).start();
     doInitialLocalization();
-    Navigation.navigate();
-    //Utility.turnBy(90, ROTATE_SPEED);
-
+    Navigation.travelTo(pointInLineWithBridge[0], pointInLineWithBridge[1]);
+    Navigation.travelTo(pointAfterBridge[0], pointAfterBridge[1]);
+    Navigation.travelTo(pointForSearch[0], pointForSearch[1]);
+    Search.search();
     }
 
 }

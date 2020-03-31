@@ -7,7 +7,9 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- * The UltrasoniocLocalizer class executes the initial localization of the robot.
+ * The UltrasoniocLocalizer class executes the initial localization of the robot. It's goal is to detect the very
+ * approximately the direction of the corner that the 2 outside walls form. This does not have to be precise, as 
+ * light localization will then perform the appropriate corrections.
  * 
  * @author Maxime Buteau
  * @author Rayan Wehbe
@@ -17,15 +19,13 @@ public class UltrasonicLocalizer implements Runnable{
   /** The us data. */
   private float[] usData = new float[usSensor.sampleSize()];
 
-  /** The distance. */
-  // Distance from wall.
+  /** The distance from the wall. */
   private volatile int distance;
 
-  /** The queue. */
-  // Lists used to filter out misread values of distance.
+  /** The queue used for filtering the us data. */
   private Queue<Float> queue = new LinkedList<Float>();
   
-  /** The filter list. */
+  /** The filter list used to calculate the median of the 5 last values. */
   private ArrayList<Float> filterList = new ArrayList<Float>();
 
   /**
@@ -33,19 +33,9 @@ public class UltrasonicLocalizer implements Runnable{
    * under the THRESHOLD_DISTANCE. Each one is filled during a 360 degrees turn.
    */
   private ArrayList<Double> angleList = new ArrayList<Double>();
-
-  /**
-   * When called starts turning the robot to the RIGHT.
-   */
-  public void turn() {
-    leftMotor.setSpeed(ROTATE_SPEED);
-    rightMotor.setSpeed(ROTATE_SPEED);
-    leftMotor.forward();
-    rightMotor.backward();
-  }
   
   /**
-   * Turns the robot to 90 degree angle from Y-axis.
+   * Turns the robot to a 90 degree angle from the Y-axis.
    */
   public void turnToNinety() {
     Utility.turnBy(angleList.get(angleList.size() / 2) - 135, ROTATE_SPEED);
@@ -71,7 +61,8 @@ public class UltrasonicLocalizer implements Runnable{
   
 
   /**
-   * Where the logic of the UltrasonicLocalizer runs.
+   * Where the logic of the UltrasonicLocalizer runs. The robot first performs a full 360 degree turn, then identifies
+   * the corner and uses it to turn and face the positive x axis.
    */
   public void run() {
 
@@ -121,7 +112,7 @@ public class UltrasonicLocalizer implements Runnable{
    * Filter.
    *
    * @param lastFiveValues the last five values
-   * @return the int
+   * @return the median value
    */
   int filter(ArrayList<Float> lastFiveValues) {
     float filteredDist = 0;
