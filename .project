@@ -20,4 +20,21 @@
 		<nature>org.lejos.ev3.ldt.leJOSEV3Nature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>hardware</name>
+			<type>2</type>
+			<location>C:/Users/kaang/Documents/leJOS_EV3_0.9.1-beta/docs/ev3/lejos/hardware</location>
+		</link>
+		<link>
+			<name>lejos</name>
+			<type>2</type>
+			<location>C:/Users/kaang/Documents/leJOS_EV3_0.9.1-beta/docs/ev3/lejos</location>
+		</link>
+		<link>
+			<name>robotics</name>
+			<type>2</type>
+			<location>C:/Users/kaang/Documents/leJOS_EV3_0.9.1-beta/docs/ev3/lejos/robotics</location>
+		</link>
+	</linkedResources>
 </projectDescription>
