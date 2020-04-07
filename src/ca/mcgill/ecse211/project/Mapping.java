@@ -15,7 +15,7 @@ public class Mapping {
   
   public static double[] bridgeExit = new double[2];
   
-  public void mapOdo(int corner) {
+  public static void mapOdo(int corner) {
     if (corner == 0) {
       odometer.setXyt(TILE_SIZE, TILE_SIZE, 0);
     }
@@ -29,6 +29,8 @@ public class Mapping {
       odometer.setXyt(TILE_SIZE, 8*TILE_SIZE, 90);
     }
   }
+  
+  
   
   /**
    * Finds which way the bridge is oriented with respect to the robot by taking the difference between the lower left and upper right x-coordinates of the bridge.

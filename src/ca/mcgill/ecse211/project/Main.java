@@ -43,6 +43,7 @@ public class Main {
     }
     Utility.moveStraight(STRAIGHT_SPEED);
     doLightCorrection();
+    Mapping.mapOdo(corner);
     odometer.setXyt(TILE_SIZE, TILE_SIZE, 0); //Reset the odometer after localization is done
     for (int i = 0; i < 3; i ++) {
       Sound.beep();

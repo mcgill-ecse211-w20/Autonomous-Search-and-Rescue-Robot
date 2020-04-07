@@ -93,7 +93,8 @@ public class Odometer implements Runnable {
   }
 
   /**
-   * This method is where the logic for the odometer will run.
+   * This method is where the logic for the odometer runs. Every time the wheels turn, by a given increment, the
+   * position is updated.
    */
   public void run() {
     long updateStart;
