@@ -1,7 +1,6 @@
 package ca.mcgill.ecse211.project;
 
 import static ca.mcgill.ecse211.project.Resources.*;
-import lejos.hardware.Sound;
 import lejos.robotics.SampleProvider;
 
 /**

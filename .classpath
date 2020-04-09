@@ -8,5 +8,6 @@
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="C:/Users/kaang/Documents/leJOS_EV3_0.9.1-beta/lib/ev3/ev3classes.jar"/>
+	<classpathentry kind="lib" path="/ECSE211-Project/lib/EV3WiFiClient.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

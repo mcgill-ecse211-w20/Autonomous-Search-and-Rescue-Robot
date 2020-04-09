@@ -1,33 +1,43 @@
 package ca.mcgill.ecse211.project;
 
 import static ca.mcgill.ecse211.project.Resources.*;
-import java.util.ArrayList;
 import lejos.hardware.Button;
 import lejos.hardware.Sound;
 
 /**
  * This class controls the execution of the different steps required for a robot to autonomously go rescue a stranded 
- * vehicle.
+ * vehicle. The robot receives parameters via Wifi that map out its starting corner, starting region, covered bridge,
+ * the island, and search zone on the island. 
+ * 
+ * The robot must first localize using the walls surrounding the whole map and grid lines on the floor. It must then 
+ * navigate to the covered bridge and cross it without ever stepping outside of its starting region. 
+ * 
+ * The next step is to navigate to its search zone and locate the stranded vehicle in it. It must do so without hitting
+ * any of the obstacles that can be present in the search zone at random locations. 
+ * 
+ * Once the stranded vehicle is located, the robot must bring the stranded vehicle back to its starting region. Once
+ * again, no obstacles can be hit and the bridge must be successfully crossed.
+ * 
+ * At no point in time can the robot step outside of the defined zones for its starting region, covered bridge, or the
+ * island.
  */
 public class Main {
-  
-  public static boolean colorDetected = false;
+ 
   public static boolean ultrasonicLocalizationComplete;
   public static boolean lightCorrectionComplete;
   public static boolean leftSensorFirst;
-  public static ArrayList<String> ColorsDetected = new ArrayList<String>();
   
-  //Store end goal of each segment to resume navigation
+  /**
+   * The end goal of each navigation segment is stored to allow for the navigation procedure to be resumed after
+   * interruption from obstacle avoidance or light correction
+   */
   public static double[] endGoal = new double[2];
-  
-  public static double[] pointInLineWithBridge = new double[2];
-  public static double[] pointAfterBridge = new double[2];
-  public static double[] pointForSearch = new double[2];
   
   /**
    * Procedure for the initial localization. The robot first performs ultrasonic localization to get a general idea of 
-   * the direction it has to travel in, before performing light localization twice to accurately to locate to the (1,1)
-   * point on the grid facing in the direction of the positive y axis.
+   * the direction it has to travel in, before performing light localization twice to accurately locate to the (1,1)
+   * point on the grid facing in the direction of the positive y axis. Note that this y axis will change depending on the
+   * starting corner of the robot.
    */
   public static void doInitialLocalization() {
     ultrasonicLocalizationComplete = false;
@@ -43,7 +53,7 @@ public class Main {
     }
     Utility.moveStraight(STRAIGHT_SPEED);
     doLightCorrection();
-    odometer.setXyt(TILE_SIZE, TILE_SIZE, 0); //Reset the odometer after localization is done
+    Mapping.mapOdo();//Reset odometer to appropriate position after localization is done
     for (int i = 0; i < 3; i ++) {
       Sound.beep();
     }
@@ -58,13 +68,15 @@ public class Main {
   }
 
   /**
-   * The main entry point. The different steps of the procedure are called in order.
+   * The main entry point. The different steps of the procedure are called in order. The main concern is minimizing 
+   * the use of threads whenever possible, to account for the limited processing power of the EV3 brick.
+   * 
+   * TODO: Separate the segments to perform light corrections. The frequency at which this should be done needs to be
+   * tested
    * 
    * @param args not used
    */
   public static void main(String[] args) {
-    
-    //TODO: change the starting procedure once the wifi class is provided
     TEXT_LCD.clear();
     TEXT_LCD.drawString("Press the middle", 0, 0);
     TEXT_LCD.drawString("button to begin!", 0, 1);
@@ -72,10 +84,10 @@ public class Main {
 
     new Thread(odometer).start();
     doInitialLocalization();
-    Navigation.travelTo(pointInLineWithBridge[0], pointInLineWithBridge[1]);
-    Navigation.travelTo(pointAfterBridge[0], pointAfterBridge[1]);
-    Navigation.travelTo(pointForSearch[0], pointForSearch[1]);
-    Search.search();
+    Navigation.travelTo(Mapping.getPointInLineWithBridge()[0], Mapping.getPointInLineWithBridge()[1]);
+    Navigation.travelTo(Mapping.getPointAfterBridge()[0], Mapping.getPointAfterBridge()[1]);
+    Navigation.travelTo(Mapping.getPointForSearch()[0], Mapping.getPointForSearch()[1]);
+    Search.search(); //After this completes, the robot should be carrying the cart inside itself. 
     }
 
 }

@@ -11,11 +11,32 @@ import static ca.mcgill.ecse211.project.Resources.*;
  */
 public class Mapping {
   
-  public static char bridgeOrientation; //Either X or Y
+  /**
+   * Determines the team that the robot is on, either red or green
+   * @return true if team is red
+   */
+  private static boolean isRedTeam() {
+    if (redTeam == TEAM_NUMBER) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
   
-  public static double[] bridgeExit = new double[2];
-  
-  public void mapOdo(int corner) {
+  /**
+   * Sets the odometer to the correct coordinates depending on the starting corner of the robot. 
+   * Assumes an accurate initial localization.
+   */
+  public static void mapOdo() {
+    int corner;
+
+    if (isRedTeam()) {
+      corner = redCorner;
+    }
+    else {
+      corner = greenCorner;
+    }
     if (corner == 0) {
       odometer.setXyt(TILE_SIZE, TILE_SIZE, 0);
     }
@@ -29,7 +50,9 @@ public class Mapping {
       odometer.setXyt(TILE_SIZE, 8*TILE_SIZE, 90);
     }
   }
-  
+
+
+
   /**
    * Finds which way the bridge is oriented with respect to the robot by taking the difference between the lower left and upper right x-coordinates of the bridge.
    * As they are only 1 square apart, if the difference is 0, then the bridge must be oriented in the Y-direction, else, the x-direction.
@@ -37,43 +60,97 @@ public class Mapping {
    * @param TN_UR_x : the upper right x-coordinate of the bridge.
    * @return "X" if oriented in the x-direction, "Y" if oriented in the y-direction.
    */
-  public char getBridgeOrient(int TN_LL_x, int TN_UR_x) {
-    
-    int dx = Math.abs(TN_LL_x - TN_UR_x);
-    
+  private static char getBridgeOrient(double TN_LL_x, double TN_UR_x) {
+
+    int dx = (int) Math.abs(TN_LL_x - TN_UR_x);
+
     if (dx == 2) {
-      bridgeOrientation = 'X';
       return 'X';
     } else {
-      bridgeOrientation = 'Y';
       return 'Y';
     }
-    
   }
   
   /**
-   * calculates the bridge exit coordinate from the corner coordinates of the bridge
-   * @param TN_LL_x : Lower left x-coordinate of the bridge
-   * @param TN_LL_y : Lower left y-coordinate of the bridge
-   * @param TN_UR_x : Upper right x-coordinate of the bridge
-   * @param TN_UR_y : Upper right y-coordinate of the bridge
-   * @return The (x,y) coordinate of the bridge exit
+   * @return the point that the robot must travel to so that it is in line with the bridge. Ensures that the robot
+   * follows the grid lines
    */
-  public double[] getBridgeExit(int TN_LL_x, int TN_LL_y, int TN_UR_x, int TN_UR_y) {
-    //IN PROGRESS
-    throw new java.lang.UnsupportedOperationException("Not implemented yet");
-    /*char orientation = getBridgeOrient(TN_LL_x, TN_UR_x);
-    int[] exit = new int[2];
-    if(orientation == 'X') {
-      exit[0] = TN_UR_x;
-      if(TN_UR_y > TN_LL_y) {
-        
+  public static double[] getPointInLineWithBridge() {
+    char bridgeOrientation;
+    double[] pointInLineWithBridge = new double[2];
+    if (isRedTeam()) {
+      bridgeOrientation = getBridgeOrient(tnr.ll.x, tnr.ur.x);
+      if (bridgeOrientation == 'X') {
+        //move only in y-direction
+        pointInLineWithBridge[0] = odometer.getXyt()[0];
+        pointInLineWithBridge[1] = ((tnr.ll.y + tnr.ur.y)/2) * TILE_SIZE;
       }
-    }*/
-    
+      else {
+        //move only in x-direction
+        pointInLineWithBridge[0] = ((tnr.ll.x + tnr.ur.x)/2) * TILE_SIZE;
+        pointInLineWithBridge[1] = odometer.getXyt()[1];
+      }
+    }
+    else {
+      bridgeOrientation = getBridgeOrient(tng.ll.x, tng.ur.x);
+      if (bridgeOrientation == 'X') {
+        //move only in y-direction
+        pointInLineWithBridge[0] = odometer.getXyt()[0];
+        pointInLineWithBridge[1] = ((tng.ll.y + tng.ur.y)/2) * TILE_SIZE;
+      }
+      else {
+        //move only in x-direction
+        pointInLineWithBridge[0] = ((tng.ll.x + tng.ur.x)/2) * TILE_SIZE;
+        pointInLineWithBridge[1] = odometer.getXyt()[1];
+      }
+    }
+    return pointInLineWithBridge;
   }
   
+  /**
+   * @return the point one tile away from the exit of the bridge. 
+   */
+  public static double[] getPointAfterBridge() {
+    char bridgeOrientation;
+    double[] pointAfterBridge = new double[2];
+    if (isRedTeam()) {
+      bridgeOrientation = getBridgeOrient(tnr.ll.x, tnr.ur.x);
+      if (bridgeOrientation == 'X') {
+        //move only in x-direction
+        pointAfterBridge[0] = (tnr.ur.x - tnr.ll.x + 1) * TILE_SIZE;
+        pointAfterBridge[1] = odometer.getXyt()[1];
+      }
+      else {
+        //move only in y-direction
+        pointAfterBridge[0] = odometer.getXyt()[0];
+        pointAfterBridge[1] = (tnr.ur.y - tnr.ll.y + 1) * TILE_SIZE;
+      }
+    }
+    else {
+      bridgeOrientation = getBridgeOrient(tng.ll.x, tng.ur.x);
+      if (bridgeOrientation == 'X') {
+        //move only in x-direction
+        pointAfterBridge[0] = (tng.ur.x - tng.ll.x + 1) * TILE_SIZE;
+        pointAfterBridge[1] = odometer.getXyt()[1];
+      }
+      else {
+        //move only in y-direction
+        pointAfterBridge[0] = odometer.getXyt()[0];
+        pointAfterBridge[1] = (tng.ur.y - tng.ll.y + 1) * TILE_SIZE;
+      }
+    }
+
+    return pointAfterBridge;
+  }
   
-  
+  /**
+   * @return the point that the robot should travel to to begin the search procedure
+   */
+  public static double[] getPointForSearch() {
+    double[] pointForSearch = new double[2];
+    //TODO: Implement depending on search pattern decided upon
+    return pointForSearch;
+
+  }
 
 }

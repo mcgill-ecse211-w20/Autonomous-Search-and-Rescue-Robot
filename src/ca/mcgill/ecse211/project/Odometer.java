@@ -7,7 +7,9 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * The odometer class keeps track of the robot's (x, y, theta) position.
+ * The odometer class keeps track of the robot's (x, y, theta) position. It should be noted that the x and y values
+ * are recorded in centimeters, while the parameters received via wifi are given in grid coordinates. A
+ * conversion using the TILE_SIZE constant is thus required.
  * 
  * @author Rodrigo Silva
  * @author Dirk Dubois
@@ -36,11 +38,6 @@ public class Odometer implements Runnable {
    */
   private volatile double theta; // Head angle
   
-  /**
-   * The (x, y, theta) position as an array.
-   */
-  private double[] position;
-
   // Thread control tools
   /**
    * Fair lock for concurrent writing.
@@ -93,7 +90,8 @@ public class Odometer implements Runnable {
   }
 
   /**
-   * This method is where the logic for the odometer will run.
+   * This method is where the logic for the odometer runs. Every time the wheels turn, by a given increment, the
+   * position is updated.
    */
   public void run() {
     long updateStart;
