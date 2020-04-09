@@ -7,6 +7,9 @@ import static ca.mcgill.ecse211.project.Resources.*;
  * The Mapping class converts raw map data to coordinates that are used by the robot after initial localization.
  * As the robot will localize in different directions based on its starting zone, its internal x and y-axis will be different with respect to the given raw map coordinates
  * so these coordinates must be converted to a form that respects the internal localizer x and y-axis.
+ * 
+ * @author Maxime Buteau
+ * @author Kaan Gure
  *
  */
 public class Mapping {

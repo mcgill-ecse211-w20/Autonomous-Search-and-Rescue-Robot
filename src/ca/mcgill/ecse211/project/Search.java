@@ -5,7 +5,8 @@ package ca.mcgill.ecse211.project;
  * It utilizes an S-shaped search pattern, sweeping the search zone from one end to the other.
  * It also enables the robot to return to its search path after an obstacle avoidance routine has been completed.
  * It also contains the method that allows the robot to capture the car after it has been detected by the ObstacleAvoidance class.
- *
+ * 
+ * @author Kaan Gure
  */
 public class Search {
   

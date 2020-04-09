@@ -9,6 +9,8 @@ package ca.mcgill.ecse211.project;
  * When only the lower sensor detects an obstacle, then it is considered to be the car, as the car is not tall enough to be detected by the top sensor.
  * When the car is detected, a flag is sent to the search class.
  * This thread will run continuously over a set interval while the robot is in the search zone.
+ * 
+ * @author Kaan Gure
  *
  */
 public class ObstacleAvoidance implements Runnable{

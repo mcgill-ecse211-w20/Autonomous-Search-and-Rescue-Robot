@@ -7,6 +7,8 @@ import lejos.robotics.SampleProvider;
  * The LightLocalizer class performs small corrections to the trajectory of the robot at line intersections to 
  * ensure that it moves in a straight line. For this to work, the robot has to move along the grid lines.
  * 
+ * @author Maxime Buteau
+ * 
  */
 public class LightLocalizer implements Runnable {
   

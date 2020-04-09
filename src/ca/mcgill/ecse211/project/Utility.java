@@ -7,6 +7,9 @@ import static ca.mcgill.ecse211.project.Resources.rightMotor;
 
 /**
  * The Class Utility includes shared utility methods to avoid cluttering in other classes.
+ * 
+ * @author Maxime Buteau
+ * @author Kaan Gure
  */
 public final class Utility {
   
