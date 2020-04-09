@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- * The UltrasoniocLocalizer class executes the initial localization of the robot. It's goal is to detect the very
+ * The UltrasoniocLocalizer class executes the initial localization of the robot. It's goal is to detect very
  * approximately the direction of the corner that the 2 outside walls form. This does not have to be precise, as 
  * light localization will then perform the appropriate corrections.
  * 
@@ -109,7 +109,7 @@ public class UltrasonicLocalizer implements Runnable{
   }
   
   /**
-   * Filter.
+   * Filter for the ultrasonic sensor.
    *
    * @param lastFiveValues the last five values
    * @return the median value

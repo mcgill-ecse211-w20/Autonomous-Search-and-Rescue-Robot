@@ -1,20 +1,18 @@
 package ca.mcgill.ecse211.project;
 
 import static ca.mcgill.ecse211.project.Resources.*;
-import lejos.hardware.Button;
-import lejos.hardware.Sound;
 
 /**
  * The navigation class allows for the robot's movement along a given path. To help with light corrections,
- * the robot should travel along the gridlines as much as possible.
+ * the robot should travel along the grid lines as much as possible.
  * 
  * @author Maxime Buteau
  * @author Rayan Wehbe
  * @author Kaan Gure
  */
 public class Navigation {
-  /*
-   * 
+  /**
+   * This angle helps with finding the shortest way to turn towards the next point to be traveled to
    */
   private static double angleFromYAxis = 0;
 
@@ -40,8 +38,8 @@ public class Navigation {
    */
   public static void travelTo(double x, double y) {
 
-    double xDist = (x * TILE_SIZE - odometer.getXyt()[0]);
-    double yDist = (y * TILE_SIZE - odometer.getXyt()[1]);
+    double xDist = (x - odometer.getXyt()[0]);
+    double yDist = (y - odometer.getXyt()[1]);
 
     // Euclidean distance to next point
     double distance = (Math.hypot(xDist,yDist));
