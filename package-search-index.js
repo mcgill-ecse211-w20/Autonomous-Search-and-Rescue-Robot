@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"ca.mcgill.ecse211.project"}]
+packageSearchIndex = [{"l":"ca.mcgill.ecse211.playingfield"},{"l":"ca.mcgill.ecse211.project"}]
