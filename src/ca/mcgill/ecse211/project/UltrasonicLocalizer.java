@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- * The UltrasoniocLocalizer class executes the initial localization of the robot. It's goal is to detect very
+ * The UltrasonicLocalizer class executes the initial localization of the robot. It's goal is to detect very
  * approximately the direction of the corner that the 2 outside walls form. This does not have to be precise, as 
  * light localization will then perform the appropriate corrections.
  * 
@@ -35,15 +35,19 @@ public class UltrasonicLocalizer implements Runnable{
   private ArrayList<Double> angleList = new ArrayList<Double>();
   
   /**
-   * Turns the robot to a 90 degree angle from the Y-axis.
+   * Turns the robot to a 90 degree angle from the Y-axis. It uses the approximate position the robot has detected 
+   * for the corner as a reference point.
    */
   public void turnToNinety() {
     Utility.turnBy(angleList.get(angleList.size() / 2) - 135, ROTATE_SPEED);
   }
 
   /**
-   * Checks to make sure the robot points away from the wall before starting the localization.
-   * It calls itself until distance reading is high enough.
+   * Checks to make sure the robot points away from the wall before starting the localization process. This ensures 
+   * that the middle value of the angles recorded when the ultrasonic sensor detects a low enough distance is approximately 
+   * the corner.
+   * 
+   * The robot turns by 30 degrees until distance reading is high enough.
    */
   public void initialPositionning() {
     usSensor.fetchSample(usData, 0);
@@ -109,7 +113,7 @@ public class UltrasonicLocalizer implements Runnable{
   }
   
   /**
-   * Filter for the ultrasonic sensor.
+   * Filter for the ultrasonic sensor. The median of a moving window is used.
    *
    * @param lastFiveValues the last five values
    * @return the median value

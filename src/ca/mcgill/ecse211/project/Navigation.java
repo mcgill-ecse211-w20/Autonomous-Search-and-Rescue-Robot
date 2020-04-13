@@ -3,8 +3,9 @@ package ca.mcgill.ecse211.project;
 import static ca.mcgill.ecse211.project.Resources.*;
 
 /**
- * The navigation class allows for the robot's movement along a given path. To help with light corrections,
- * the robot should travel along the grid lines as much as possible.
+ * The navigation class allows the robot to move to a specific point on the grid once proper localization is complete.
+ * Note that the methods in this class should be called repeatedly in the Main class to ensure that the robot follows
+ * grid lines and that light correction can be performed
  * 
  * @author Maxime Buteau
  * @author Rayan Wehbe
@@ -17,7 +18,8 @@ public class Navigation {
   private static double angleFromYAxis = 0;
 
   /**
-   * Turns the robot by the shortest angle to point to the point it has to navigate to.
+   * Turns the robot by the shortest angle to point to the next point it has to navigate to. It ensures that the robot 
+   * does not turn 270 degrees in one direction when it could simply turn 90 degrees in the other direction.
    * @param angle
    */
   private static void turnTo(double angle) { 
@@ -31,7 +33,8 @@ public class Navigation {
   }
 
   /**
-   * Moves the robot to an input point on the grid.
+   * Moves the robot to an input point on the grid. This method should be called repeatedly from the Main method with
+   * coordinates that allow the robot to follow grid lines as much as possible.
    * 
    * @param x the X-coordinate of the point to go to
    * @param y the Y-coordinate of the point to go to

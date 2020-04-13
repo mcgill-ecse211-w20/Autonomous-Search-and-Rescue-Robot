@@ -15,7 +15,8 @@ import static ca.mcgill.ecse211.project.Resources.*;
 public class Mapping {
   
   /**
-   * Determines the team that the robot is on, either red or green
+   * Determines the team that the robot is on, either red or green, by comparing the red team number provided by wifi
+   * with the TEAM_NUMBER
    * @return true if team is red
    */
   private static boolean isRedTeam() {
@@ -28,8 +29,11 @@ public class Mapping {
   }
   
   /**
-   * Sets the odometer to the correct coordinates depending on the starting corner of the robot. 
-   * Assumes an accurate initial localization.
+   * Sets the odometer to the correct coordinates depending on the starting corner of the robot. The starting corner
+   * value, between 0 and 3, is obtained via wifi. An accurate initial localization is assumed, so the center of the
+   * wheelbase of the robot should be centered on the grid line intersection nearest to the starting corner. The robot
+   * should also be pointing in the positive y-direction relative to its starting corner. The theoretical x, y, and
+   * theta values are then passed to the odometer.
    */
   public static void mapOdo() {
     int corner;
@@ -57,8 +61,10 @@ public class Mapping {
 
 
   /**
-   * Finds which way the bridge is oriented with respect to the robot by taking the difference between the lower left and upper right x-coordinates of the bridge.
-   * As they are only 1 square apart, if the difference is 0, then the bridge must be oriented in the Y-direction, else, the x-direction.
+   * Finds the orientation of the bridge by taking the difference between the upper right x-coordinate and lower-left
+   * x-coordinate of the bridge. If the difference is  2, the bridge is oriented in the x-direction. Otherwise, it is
+   * oriented in the y-direction. 
+   * 
    * @param TN_LL_x : the lower left x-coordinate of the bridge.
    * @param TN_UR_x : the upper right x-coordinate of the bridge.
    * @return "X" if oriented in the x-direction, "Y" if oriented in the y-direction.
@@ -75,8 +81,12 @@ public class Mapping {
   }
   
   /**
-   * @return the point that the robot must travel to so that it is in line with the bridge. Ensures that the robot
-   * follows the grid lines
+   * Finds the point in line with the bridge. If the bridge is oriented in the x-direction, the robot will only move in 
+   * the y-direction. Otherwise, it will only move in the x-direction. This ensures that the robot will be following a
+   * gridline, allowing for light correction. Since the center of the bridge entrance is in the middle of a tile, the 
+   * robot will also stop in the middle of the tile.
+   * 
+   * @return the point in line with the bridge
    */
   public static double[] getPointInLineWithBridge() {
     char bridgeOrientation;
@@ -111,6 +121,13 @@ public class Mapping {
   }
   
   /**
+   * Finds the point on the first line perpendicular to the bridge's orientation after the bridge exit. Depending on the
+   * bridge orientation, the robot should only move in the x or y-direction after having traveled to the point in line
+   * with the bridge. Even though the center of the wheelbase will be in the middle of a tile, it will still be possible
+   * to perform light corrections on the perpendicular grid lines.
+   * 
+   * TODO: Ensure no light corrections are performed inside the bridge, as there are no gridlines on the ground
+   * 
    * @return the point one tile away from the exit of the bridge. 
    */
   public static double[] getPointAfterBridge() {
@@ -147,6 +164,10 @@ public class Mapping {
   }
   
   /**
+   * This method has not been implemented yet, as it depends on the search pattern that is selected, either the 
+   * s-pattern or the center-scan. Note that a new localization on grid line intersections might be necessary to reduce
+   * inaccuracies that the bridge traversal might have caused
+   *  
    * @return the point that the robot should travel to to begin the search procedure
    */
   public static double[] getPointForSearch() {

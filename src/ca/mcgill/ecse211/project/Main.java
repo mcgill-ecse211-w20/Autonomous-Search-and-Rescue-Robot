@@ -38,7 +38,8 @@ public class Main {
   
   /**
    * Procedure for the initial localization. The robot first performs ultrasonic localization to get a general idea of 
-   * the direction it has to travel in, before performing light localization twice to accurately locate to the (1,1)
+   * the direction it has to travel in, before performing light localization twice (once on the first y-axis grid line
+   * and once on the first x-axis grid line) to accurately locate to the (1,1)
    * point on the grid facing in the direction of the positive y axis. Note that this y axis will change depending on the
    * starting corner of the robot.
    */
@@ -62,7 +63,8 @@ public class Main {
     }
   }
   /*
-   * Performs light correction when the robot is traveling straight
+   * Performs light correction when the robot is traveling straight. The endGoal of the current navigation segment
+   * should be stored, so that navigation can be resumed after this correction is completed
    */
   public static void doLightCorrection() {
     lightCorrectionComplete = false;
@@ -74,8 +76,11 @@ public class Main {
    * The main entry point. The different steps of the procedure are called in order. The main concern is minimizing 
    * the use of threads whenever possible, to account for the limited processing power of the EV3 brick.
    * 
-   * TODO: Separate the segments to perform light corrections. The frequency at which this should be done needs to be
+   * TODO: The segments should be separated to perform light corrections. The frequency at which this should be done needs to be
    * tested
+   * 
+   * TODO: Determine the best way to return to the starting zone once the searching process is complete. Note that 
+   * an obstacle could still be encountered during that process.
    * 
    * @param args not used
    */
