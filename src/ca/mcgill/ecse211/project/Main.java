@@ -21,6 +21,8 @@ import lejos.hardware.Sound;
  * At no point in time can the robot step outside of the defined zones for its starting region, covered bridge, or the
  * island.
  * 
+ * For more information on this class and its logic, refer to the Group08_SOFTWARE_OVERVIEW_DOC_v4.0 section 9.1
+ * 
  * @author Maxime Buteau
  * @author Kaan Gure
  */

@@ -15,6 +15,8 @@ package ca.mcgill.ecse211.project;
  * When the car is detected, a flag is sent to the search class.
  * This thread will run continuously over a set interval while the robot is in the search zone.
  * 
+ * For more information on this class and its logic, refer to the Group08_SOFTWARE_OVERVIEW_DOC_v4.0 section 9.8
+ * 
  * @author Kaan Gure
  *
  */

@@ -8,6 +8,8 @@ import static ca.mcgill.ecse211.project.Resources.*;
  * As the robot will localize in different directions based on its starting zone, its internal x and y-axis will be different with respect to the given raw map coordinates
  * so these coordinates must be converted to a form that respects the internal localizer x and y-axis.
  * 
+ * For more information on this class and its logic, refer to the Group08_SOFTWARE_OVERVIEW_DOC_v4.0 section 9.4
+ * 
  * @author Maxime Buteau
  * @author Kaan Gure
  *

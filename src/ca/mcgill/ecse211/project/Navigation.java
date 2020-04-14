@@ -7,6 +7,8 @@ import static ca.mcgill.ecse211.project.Resources.*;
  * Note that the methods in this class should be called repeatedly in the Main class to ensure that the robot follows
  * grid lines and that light correction can be performed
  * 
+ * For more information on this class and its logic, refer to the Group08_SOFTWARE_OVERVIEW_DOC_v4.0 section 9.6
+ * 
  * @author Maxime Buteau
  * @author Rayan Wehbe
  * @author Kaan Gure

@@ -11,6 +11,8 @@ package ca.mcgill.ecse211.project;
  * It also contains the method that allows the robot to capture the cart after it has been detected by the 
  * ObstacleAvoidance class.
  * 
+ * For more information on this class and its logic, refer to the Group08_SOFTWARE_OVERVIEW_DOC_v4.0 section 9.3
+ * 
  * @author Kaan Gure
  */
 public class Search {

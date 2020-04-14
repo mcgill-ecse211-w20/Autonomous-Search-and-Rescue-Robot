@@ -11,6 +11,8 @@ import java.util.Queue;
  * approximately the direction of the corner that the 2 outside walls form. This does not have to be precise, as 
  * light localization will then perform the appropriate corrections.
  * 
+ * For more information on this class and its logic, refer to the Group08_SOFTWARE_OVERVIEW_DOC_v4.0 section 9.2
+ * 
  * @author Maxime Buteau
  * @author Rayan Wehbe
  */
